@@ -1,0 +1,3 @@
+-- Trigger installation is intentionally performed by MySqlCompatibilitySchema.
+-- That component creates compatibility tables after Flyway and then installs the
+-- runtime mirrors, so a clean database can bootstrap in the correct order.

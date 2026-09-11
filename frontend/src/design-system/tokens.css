@@ -1,0 +1,77 @@
+:root {
+  color-scheme: light;
+
+  /* Swiss enterprise contract workspace. HeroUI semantic-token bridge. */
+  --background: #f7f7f8;
+  --foreground: #172033;
+  --surface: #ffffff;
+  --surface-foreground: #172033;
+  --surface-secondary: #f1f3f6;
+  --surface-secondary-foreground: #344054;
+  --surface-tertiary: #e8ebf0;
+  --surface-tertiary-foreground: #475467;
+  --overlay: #ffffff;
+  --overlay-foreground: #172033;
+  --muted: #667085;
+  --accent: #002fa7;
+  --accent-foreground: #ffffff;
+  --accent-soft: #eef3ff;
+  --success: #13795b;
+  --success-soft: #eaf7f1;
+  --warning: #a15c00;
+  --warning-soft: #fff4df;
+  --danger: #b42318;
+  --danger-soft: #fff0ee;
+  --border: #dfe3ea;
+  --separator: #eaecf0;
+  --focus: #002fa7;
+  --field-background: #f4f5f7;
+  --field-foreground: #172033;
+  --field-placeholder: #98a2b3;
+  --surface-shadow: 0 1px 2px rgb(16 24 40 / 5%);
+  --overlay-shadow: 0 20px 48px rgb(16 24 40 / 16%);
+  --cursor-interactive: pointer;
+  --cursor-disabled: not-allowed;
+
+  --cm-background: var(--background);
+  --cm-surface: var(--surface);
+  --cm-surface-muted: var(--surface-secondary);
+  --cm-surface-hover: #f8faff;
+  --cm-text: var(--foreground);
+  --cm-text-muted: var(--muted);
+  --cm-text-subtle: #98a2b3;
+  --cm-border: var(--border);
+  --cm-border-strong: #c8ced8;
+  --cm-accent: var(--accent);
+  --cm-accent-soft: var(--accent-soft);
+  --cm-success: var(--success);
+  --cm-success-soft: var(--success-soft);
+  --cm-warning: var(--warning);
+  --cm-warning-soft: var(--warning-soft);
+  --cm-danger: var(--danger);
+  --cm-danger-soft: var(--danger-soft);
+  --cm-focus: rgb(0 47 167 / 28%);
+  --cm-radius-sm: 4px;
+  --cm-radius-md: 6px;
+  --cm-radius-lg: 8px;
+  --cm-radius-xl: 12px;
+  --cm-font-sans: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  --cm-font-mono: "Roboto Mono", "SFMono-Regular", Consolas, monospace;
+  --cm-space-1: 4px;
+  --cm-space-2: 8px;
+  --cm-space-3: 12px;
+  --cm-space-4: 16px;
+  --cm-space-5: 20px;
+  --cm-space-6: 24px;
+  --cm-space-8: 32px;
+  --cm-page-max: 1440px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

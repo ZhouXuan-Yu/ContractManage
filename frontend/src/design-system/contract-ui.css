@@ -1,0 +1,285 @@
+/*
+ * Unified visual layer for every current feature workspace.
+ * Kept after legacy styles during the migration so functionality can move page by page.
+ */
+
+html, body, #app { min-height: 100%; }
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--cm-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button, a, input, select, textarea, label[role="button"] { font: inherit; }
+button:not(:disabled), a[href], select:not(:disabled), label:has(input[type="file"]), [role="button"] {
+  cursor: var(--cursor-interactive);
+}
+button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: var(--cursor-disabled); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--cm-focus);
+  outline-offset: 2px;
+}
+
+body .app-shell {
+  min-height: 100vh;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+body .app-shell .sidebar {
+  width: 248px;
+  flex-basis: 248px;
+  min-height: 100vh;
+  padding: 0 16px 16px;
+  border-right: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--background);
+}
+body .app-shell .brand {
+  min-height: 72px;
+  padding: 16px 8px;
+  border: 0;
+  color: var(--foreground);
+  font-size: 15px;
+  letter-spacing: -.01em;
+}
+body .app-shell .brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--cm-radius-md);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  box-shadow: none;
+}
+body .app-shell .nav-group { margin: 10px 0 18px; }
+body .app-shell .nav-group-title {
+  min-height: 40px;
+  padding: 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: .02em;
+}
+body .app-shell .nav-submenu { gap: 4px; }
+body .app-shell .nav-submenu button {
+  min-height: 40px;
+  padding: 0 12px 0 14px;
+  border-radius: var(--cm-radius-md);
+  color: var(--surface-secondary-foreground);
+  background: transparent;
+}
+body .app-shell .nav-submenu button:hover { color: var(--foreground); background: var(--surface-secondary); }
+body .app-shell .nav-submenu button.active {
+  color: var(--accent);
+  background: var(--surface);
+  box-shadow: var(--surface-shadow);
+}
+body .app-shell .nav-submenu button.active::before { display: none; }
+body .app-shell .sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 10px 8px;
+  border: 0;
+  color: var(--muted);
+}
+body .app-shell .sidebar-user-avatar {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 750;
+}
+body .app-shell .sidebar-user-copy { display: grid; min-width: 0; gap: 2px; }
+body .app-shell .sidebar-user-copy strong { overflow: hidden; color: var(--foreground); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+body .app-shell .sidebar-user-copy small { color: var(--cm-text-subtle); font-size: 10px; }
+body .app-shell .sidebar-logout {
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
+  border: 0;
+  border-radius: var(--cm-radius-md);
+  color: var(--muted);
+  background: transparent;
+}
+body .app-shell .sidebar-logout:hover { color: var(--danger); background: var(--danger-soft); }
+
+body .app-shell .main-content { min-width: 0; background: var(--background); }
+body .app-shell .topbar {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  height: 64px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+  background: rgb(247 247 248 / 92%);
+  backdrop-filter: blur(14px);
+}
+body .app-shell .topbar::before { display: none; }
+body .app-shell .topbar-title { display: grid; gap: 3px; }
+body .app-shell .topbar-title strong { color: var(--foreground); font-size: 15px; }
+body .app-shell .topbar-title .breadcrumb { color: var(--cm-text-subtle); font-size: 11px; }
+body .app-shell .topbar-context {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+body .app-shell .topbar-context::before { width: 6px; height: 6px; border-radius: 50%; background: var(--success); content: ''; }
+
+body .app-shell .page-section {
+  width: min(100%, var(--cm-page-max));
+  padding: 32px 36px 64px;
+  margin: 0 auto;
+}
+body .app-shell .page-header { align-items: flex-end; gap: 28px; padding-bottom: 6px; }
+body .app-shell .eyebrow, body .app-shell .panel-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-family: var(--cm-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: none;
+}
+body .app-shell .eyebrow::after, body .app-shell .panel-kicker::after {
+  width: 38px;
+  height: 1px;
+  background: var(--cm-border-strong);
+  content: '';
+}
+body .app-shell h1 { margin: 6px 0 8px; color: var(--foreground); font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -.025em; }
+body .app-shell .page-desc { max-width: 760px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+body .app-shell .panel,
+body .app-shell .metric-card,
+body .app-shell .create-path-modal,
+body .app-shell .detail-archive-card,
+body .app-shell .signed-registration,
+body .app-shell .intake-choice,
+body .app-shell .intake-review-form {
+  border: 1px solid var(--border);
+  border-radius: var(--cm-radius-lg);
+  background: var(--surface);
+  box-shadow: var(--surface-shadow);
+}
+body .app-shell .panel { padding: 24px; }
+body .app-shell .section-heading { gap: 20px; }
+body .app-shell .section-heading h2, body .app-shell .panel > h2 { color: var(--foreground); font-size: 16px; letter-spacing: -.01em; }
+body .app-shell .section-caption, body .app-shell .muted { color: var(--muted); }
+
+body .app-shell .metric-grid { gap: 12px; }
+body .app-shell .metric-card {
+  min-height: 132px;
+  padding: 20px;
+  text-align: left;
+}
+body .app-shell .metric-card:hover { border-color: var(--cm-border-strong); background: var(--surface); transform: none; box-shadow: 0 4px 16px rgb(16 24 40 / 7%); }
+body .app-shell .metric-value, body .app-shell .metric-card strong { color: var(--foreground); font-variant-numeric: tabular-nums; }
+body .app-shell .metric-glyph { color: var(--accent); background: var(--accent-soft); }
+body .app-shell .metric-action { color: var(--accent); background: transparent; }
+body .app-shell .metric-action:hover { color: var(--accent); background: var(--accent-soft); }
+
+body .app-shell input:not([type="checkbox"]):not([type="radio"]),
+body .app-shell select,
+body .app-shell textarea {
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--cm-radius-md);
+  color: var(--field-foreground);
+  background: var(--field-background);
+  box-shadow: inset 0 0 0 1px transparent;
+}
+body .app-shell textarea { padding: 12px 14px; }
+body .app-shell input:hover, body .app-shell select:hover, body .app-shell textarea:hover { border-color: var(--cm-border-strong); }
+body .app-shell input:focus, body .app-shell select:focus, body .app-shell textarea:focus { border-color: var(--accent); background: var(--surface); }
+
+body .app-shell .primary-action, body .app-shell .secondary-action, body .app-shell .logout-button, body .app-shell .link-button {
+  min-height: 38px;
+  border-radius: var(--cm-radius-md);
+  font-weight: 650;
+}
+body .app-shell .primary-action { border-color: var(--accent); color: var(--accent-foreground); background: var(--accent); }
+body .app-shell .primary-action:hover { border-color: #001f73; background: #001f73; }
+body .app-shell .secondary-action { border-color: var(--border); color: var(--surface-secondary-foreground); background: var(--surface); }
+body .app-shell .secondary-action:hover { border-color: var(--cm-border-strong); background: var(--surface-secondary); }
+body .app-shell .link-button { color: var(--accent); }
+
+body .app-shell .status-tag, body .app-shell .pill, body .app-shell [class*="status-tag"] {
+  border-radius: var(--cm-radius-md);
+  font-weight: 650;
+}
+body .app-shell .table-head, body .app-shell .workspace-table-head, body .app-shell .config-table-head { color: var(--muted); background: var(--surface-secondary); }
+body .app-shell .table-row, body .app-shell .workspace-table-row, body .app-shell .config-table-row { border-color: var(--separator); }
+body .app-shell .table-row:hover, body .app-shell .workspace-table-row:hover, body .app-shell .config-table-row:hover { background: var(--cm-surface-hover); }
+body .app-shell .row-action { color: var(--accent); }
+
+body .app-shell .detail-tabs {
+  position: sticky;
+  z-index: 25;
+  top: 64px;
+  padding: 0 36px;
+  border-bottom: 1px solid var(--border);
+  background: rgb(255 255 255 / 94%);
+  backdrop-filter: blur(12px);
+}
+body .app-shell .detail-tabs button.active { color: var(--accent); }
+body .app-shell .detail-tabs button.active::after { background: var(--accent); }
+
+body .login-screen { color: var(--foreground); background: var(--background); }
+body .login-brand .brand-mark { border-radius: var(--cm-radius-md); background: var(--accent); }
+body .login-panel { border: 1px solid var(--border); border-radius: var(--cm-radius-xl); box-shadow: var(--overlay-shadow); }
+body .login-screen .eyebrow, body .login-kicker { color: var(--accent); }
+body .login-submit { background: var(--accent); }
+
+/* App.vue still contains legacy emergency overrides with !important. This higher-level
+ * migration seam keeps the new shell authoritative until those declarations are removed. */
+body #app .app-shell .sidebar {
+  width: 248px !important;
+  flex: 0 0 248px !important;
+  min-height: 100vh;
+  padding: 0 16px 16px !important;
+  border-right: 1px solid var(--border) !important;
+  color: var(--muted) !important;
+  background: var(--background) !important;
+}
+body #app .app-shell .brand {
+  min-height: 72px;
+  margin: 0;
+  padding: 16px 8px;
+  border: 0;
+  color: var(--foreground);
+  background: transparent;
+}
+body #app .app-shell .brand-mark {
+  color: var(--accent-foreground) !important;
+  background: var(--accent) !important;
+  box-shadow: none !important;
+}
+body #app .app-shell .sidebar-footer { color: var(--muted); background: transparent; }
+
+@media (max-width: 900px) {
+  body #app .app-shell .sidebar { width: 220px !important; flex-basis: 220px !important; }
+  body .app-shell .page-section { padding-right: 24px; padding-left: 24px; }
+}
+
+@media (max-width: 620px) {
+  body #app .app-shell .sidebar { width: 100% !important; min-height: auto; padding: 10px 14px !important; border-right: 0 !important; border-bottom: 1px solid var(--border); }
+  body #app .app-shell .brand { min-height: 52px; padding: 6px 2px 10px; }
+  body .app-shell .sidebar-footer { display: none; }
+  body .app-shell .topbar { top: 0; height: 56px; padding: 0 16px; }
+  body .app-shell .topbar-context { display: none; }
+  body .app-shell .page-section { padding: 28px 16px 48px; }
+  body .app-shell .detail-tabs { top: 56px; padding: 0 16px; }
+}

@@ -1,0 +1,21 @@
+# IAM 对接配置（开发联调用，非生产）
+# 启动方式：SPRING_PROFILES_ACTIVE=local,iam
+# 说明：本文件只覆盖 auth 配置，数据源仍走 application-local.yml 的 SQLite。
+
+contract:
+  auth:
+    mode: iam
+    iam-base-url: https://sys-iam-dev.qd-ecs.com:28084
+    # 网关地址：调文档中心/元数据中心走这里，不是 IAM 本身。待技术人员提供后填入。
+    gateway-base-url: ${IAM_GATEWAY_BASE_URL:}
+    client-id: hr_contract_management-client
+    # 密钥：IAM 界面「留空表示不更新密钥」是编辑表单提示，不等于密钥为空。
+    # 自有登录页走的是密码登录（/api/v1/auth/login/password），不需要密钥；
+    # 只有「门户 OIDC 进入」才需要 client-secret（或改用 PKCE）。
+    client-secret: ${IAM_CLIENT_SECRET:}
+    app-code: hr_contract_management
+    redirect-uri: http://localhost:19090/api/auth/oidc/callback
+    frontend-url: http://localhost:5173
+    role-default: VIEWER
+    oidc-authorize-path: ${IAM_OIDC_AUTHORIZE_PATH:/oauth2/authorize}
+    oidc-token-path: ${IAM_OIDC_TOKEN_PATH:/oauth2/token}

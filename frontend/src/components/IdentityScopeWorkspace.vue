@@ -1,0 +1,14 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+type User = { id: string; name: string; role: string; orgId: string; departmentId: string }
+type Directory = { users: User[]; organizations: { id: string; name: string }[]; departments: { id: string; name: string; orgId: string }[] }
+const props = defineProps<{ api: string; role: string; userId: string; orgId: string; departmentId: string }>()
+const emit = defineEmits<{ change: [user: User] }>()
+const data = ref<Directory>({ users: [], organizations: [], departments: [] }); const loading = ref(false); const error = ref('')
+async function load() { loading.value = true; try { const response = await fetch(`${props.api}/api/directory/mock`, { headers: { 'X-Role': props.role, 'X-User-Id': props.userId, 'X-Org-Id': props.orgId, 'X-Department-Id': props.departmentId } }); data.value = await response.json() } catch (e) { error.value = (e as Error).message } finally { loading.value = false } }
+function select(id: string) { const user = data.value.users.find(item => item.id === id); if (user) emit('change', user) }
+onMounted(load)
+</script>
+<template>
+  <section class="identity-workspace page-section"><div class="page-header"><div><p class="eyebrow">系统管理 / 权限与审计 / 身份验收</p><h1>数据范围验收</h1><p class="page-desc">切换模拟用户验证合同台账、详情、履行和统计是否遵守角色数据范围。</p></div></div><div v-if="error" class="fulfillment-error">{{ error }}</div><div class="identity-layout"><section class="panel identity-switcher"><div class="section-heading"><div><h2>模拟身份</h2><p class="section-caption">后续由 HR/SSO 目录接口替换。</p></div><span class="formal-source-label">MOCK DIRECTORY</span></div><label class="identity-select">当前验收用户<select :value="props.userId" :disabled="loading" @change="select(($event.target as HTMLSelectElement).value)"><option v-for="user in data.users" :key="user.id" :value="user.id">{{ user.name }} · {{ user.role }}</option></select></label><div v-if="data.users.length" class="identity-list"><div v-for="user in data.users" :key="user.id" :class="['identity-row', { active: user.id === props.userId }]"><span class="role-mark">{{ user.name.slice(0, 1) }}</span><span><b>{{ user.name }}</b><small>{{ user.role }} · {{ user.departmentId }}</small></span><button class="link-button" @click="select(user.id)">{{ user.id === props.userId ? '当前用户' : '切换验收' }}</button></div></div></section><section class="panel scope-result"><div class="section-heading"><div><h2>当前范围命中规则</h2><p class="section-caption">页面查询会同时叠加数据范围与合同类型权限。</p></div></div><dl class="scope-grid"><div><dt>用户</dt><dd>{{ props.userId }}</dd></div><div><dt>组织</dt><dd>{{ props.orgId }}</dd></div><div><dt>部门</dt><dd>{{ props.departmentId }}</dd></div><div><dt>权限角色</dt><dd>{{ props.role }}</dd></div></dl><div class="scope-checks"><span>合同台账：按范围过滤</span><span>合同详情：越权返回不可见</span><span>履行计划：继承合同范围</span><span>统计分析：与台账口径一致</span></div></section></div></section>
+</template>
